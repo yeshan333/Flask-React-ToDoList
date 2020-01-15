@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import TodoList from './TodoList'
 
-class App extends Component {
+class Main extends Component {
+
     render() {
         return (
-            <TodoList />
+            <TodoList/>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Main />, document.getElementById('root'));
