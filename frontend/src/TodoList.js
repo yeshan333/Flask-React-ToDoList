@@ -28,18 +28,20 @@ class TodoList extends Component {
 
     //提交事件
     handleSendClick(event) {
-        if(this.state.inputValue){
-            let new_item = {
-                'id': 't'+Math.random().toString ,
-                'value': this.state.inputValue,
-                'isEditing': false
+        if(event.keyCode === 13){
+            if(this.state.inputValue){
+                let new_item = {
+                    'id': 't'+Math.random().toString ,
+                    'value': this.state.inputValue,
+                    'isEditing': false
+                }
+                this.setState({
+                    inputValue: '',
+                    items: [new_item, ...this.state.items]
+                })
+            }else{
+                alert("Please enter value!")
             }
-            this.setState({
-                inputValue: '',
-                items: [new_item, ...this.state.items]
-            })
-        }else{
-            alert("Please enter value!")
         }
     }
 
@@ -83,7 +85,7 @@ class TodoList extends Component {
                     <input
                         value={this.state.inputValue}
                         onChange={this.handleChange}
-                        onKeyPress={this.handleSendClick}
+                        onKeyUp={this.handleSendClick}
                     />
                     <button onClick={this.handleSendClick}>Send</button>
                 </div>

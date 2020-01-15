@@ -31,8 +31,10 @@ class TodoListItem extends Component {
     }
 
     //再编辑提交
-    handleReEditSend() {
-        this.props.handleReEditSend(this.props.index, this.state.inputValue);
+    handleReEditSend(event) {
+        if(event.keyCode === 13){
+            this.props.handleReEditSend(this.props.index, this.state.inputValue);
+        }
     }
 
     render() {
@@ -53,7 +55,7 @@ class TodoListItem extends Component {
                         <input
                             value={this.state.inputValue}
                             onChange={this.handleInputChange}
-                            onKeyPress={this.handleReEditSend}
+                            onKeyUp={this.handleReEditSend}
                         />
                     </li>
                 </Fragment>
