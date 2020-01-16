@@ -1,5 +1,14 @@
-import React, {Component, Fragment} from 'react'
-import TodoListItem from './TodoListItem'
+import React, {Component, Fragment} from 'react';
+import List from '@material-ui/core/List';
+
+import TodoListItem from './TodoListItem';
+import Iteminput from './components/Iteminput';
+
+const ListStyle = {
+    width: '100%',
+    backgroundColor: 'white',
+    marginTop: '1.0rem'
+}
 
 class TodoList extends Component {
     constructor(props) {
@@ -8,8 +17,9 @@ class TodoList extends Component {
             inputValue: '',
             //isEdit: true,//judge is edit?
             items: [
-                {'id': 't66', 'value': 'nihao', 'isEditing': false},
-                {'id': 't77', 'value': 'wocao', 'isEditing': true},
+                {'id': 't66', 'value': 'nihao', 'isEditing': false, 'isDone': true},
+                {'id': 't77', 'value': 'wocao', 'isEditing': false, 'isDone': false},
+                {'id': 't77', 'value': 'wocao', 'isEditing': true, 'isDone': false},
             ]
         }
         this.handleChange = this.handleChange.bind(this);
@@ -17,23 +27,27 @@ class TodoList extends Component {
         this.handleDeleteItem = this.handleDeleteItem.bind(this);
         this.handleEditItem = this.handleEditItem.bind(this);
         this.handleReEditSend = this.handleReEditSend.bind(this);
+        this.handleItemStatus = this.handleItemStatus.bind(this);
     }
 
     //input输入监控
     handleChange(event) {
+        let  value = event.target.value
         this.setState({
-            inputValue: event.target.value
+            inputValue: value
         })
     }
 
     //提交事件
     handleSendClick(event) {
-        if(event.keyCode === 13){
+        //console.log(event.type);
+        if(event.keyCode === 13 || event.type === 'click'){
             if(this.state.inputValue){
                 let new_item = {
                     'id': 't'+Math.random().toString ,
                     'value': this.state.inputValue,
-                    'isEditing': false
+                    'isEditing': false,
+                    'isDone': false
                 }
                 this.setState({
                     inputValue: '',
@@ -72,39 +86,52 @@ class TodoList extends Component {
                 items: new_items
             });
         }else{
-            alert("Please enter value!")
+            alert("Please enter value!");
         }
+    }
+
+    handleItemStatus(index) {
+        let new_items = this.state.items;
+        new_items[index].isDone = !new_items[index].isDone;
+        this.setState({
+            items: new_items
+        });
     }
 
     render() {
         return (
             <Fragment>
-                <h1>To-Do List</h1>
-                <div>
-                    <label>Task：</label>
+{/*                 <div>
                     <input
                         value={this.state.inputValue}
                         onChange={this.handleChange}
                         onKeyUp={this.handleSendClick}
                     />
                     <button onClick={this.handleSendClick}>Send</button>
-                </div>
-                <ul>
+                </div> */}
+                <Iteminput
+                    value={this.state.inputValue}
+                    handleChange={this.handleChange}
+                    handleSendClick={this.handleSendClick}
+                />
+                <List style={ListStyle}>
                     {
                         this.state.items.map((item, index) => {
                             return (
-                                <TodoListItem
-                                    key={item.id+index}
-                                    item={item}
-                                    index={index}
-                                    handleDeleteItem={this.handleDeleteItem}
-                                    handleEditItem={this.handleEditItem}
-                                    handleReEditSend={this.handleReEditSend}
-                                />
+                                    <TodoListItem
+                                        key={item.id+index}
+                                        item={item}
+                                        index={index}
+                                        handleDeleteItem={this.handleDeleteItem}
+                                        handleEditItem={this.handleEditItem}
+                                        handleReEditSend={this.handleReEditSend}
+                                        handleItemStatus={this.handleItemStatus}
+                                    />
+
                             );
                         })
                     }
-                </ul>
+                </List>
             </Fragment>
         );
     }

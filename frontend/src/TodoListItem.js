@@ -1,5 +1,20 @@
 import React, {Component, Fragment} from 'react'
 
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import Edit from '@material-ui/icons/Edit';
+
+const InputStyle = {
+    width: '100%'
+}
+
 class TodoListItem extends Component {
     constructor(props){
         super(props);
@@ -12,6 +27,7 @@ class TodoListItem extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleReEditSend = this.handleReEditSend.bind(this);
+        this.handleItemStatus = this.handleItemStatus.bind(this);
     }
 
     //删除事项
@@ -37,27 +53,56 @@ class TodoListItem extends Component {
         }
     }
 
+    //控制事项状态
+    handleItemStatus() {
+        this.props.handleItemStatus(this.props.index);
+    }
+
     render() {
         if(!this.props.item.isEditing){
             return (
                 <Fragment>
-                    <li>
-                        <button onClick={this.handleDeleteClick}>delete</button>
-                        <button onClick={this.handleEditClick}>edit</button>
-                        {this.props.item.value}
-                    </li>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Checkbox
+                                edge="start"
+                                checked={this.props.item.isDone}
+                                disableRipple
+                                inputProps={{ 'aria-labelledby': this.props.item.id }}
+                                onClick={this.handleItemStatus}
+                            />
+                        </ListItemIcon>
+                        <ListItemText
+                            style={{textDecorationLine: this.props.item.isDone ? 'line-through': 'none'}}
+                            id={this.props.item.id}
+                        >
+                            {this.props.item.value}
+                        </ListItemText>
+                        <ListItemSecondaryAction>
+                            <IconButton edge="end" aria-label="edit" onClick={this.handleEditClick}>
+                                <Edit />
+                            </IconButton>
+                            <IconButton edge="end" aria-label="delete" onClick={this.handleDeleteClick}>
+                                <DeleteForever />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
                 </Fragment>
             );
         }else{
             return (
                 <Fragment>
-                    <li>
-                        <input
-                            value={this.state.inputValue}
-                            onChange={this.handleInputChange}
-                            onKeyUp={this.handleReEditSend}
-                        />
-                    </li>
+                    <ListItem button>
+                    <TextField
+                        id={this.props.item.id}
+                        label="editing"
+                        variant="outlined"
+                        value={this.state.inputValue}
+                        onChange={this.handleInputChange}
+                        onKeyUp={this.handleReEditSend}
+                        style={InputStyle}
+                    />
+                    </ListItem>
                 </Fragment>
             );
         }
