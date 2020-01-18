@@ -1,8 +1,15 @@
 import React, {Component, Fragment} from 'react';
 import List from '@material-ui/core/List';
+import axios from 'axios'
 
 import TodoListItem from './TodoListItem';
 import Iteminput from './components/Iteminput';
+
+//axios Ajax
+/* axios.create({
+    baseURL: "",
+    responseType: "json"
+}); */
 
 const ListStyle = {
     width: '100%',
@@ -16,11 +23,12 @@ class TodoList extends Component {
         this.state = {
             inputValue: '',
             //isEdit: true,//judge is edit?
-            items: [
-                {'id': 't66', 'value': 'nihao', 'isEditing': false, 'isDone': true},
-                {'id': 't77', 'value': 'wocao', 'isEditing': false, 'isDone': false},
-                {'id': 't77', 'value': 'wocao', 'isEditing': true, 'isDone': false},
-            ]
+            items: []
+/*             items: [
+                {'_id': 't66', 'value': 'nihao', 'isEditing': false, 'isDone': true},
+                {'_id': 't77', 'value': 'wocao', 'isEditing': false, 'isDone': false},
+                {'_id': 't77', 'value': 'wocao', 'isEditing': true, 'isDone': false},
+            ] */
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSendClick = this.handleSendClick.bind(this);
@@ -28,7 +36,56 @@ class TodoList extends Component {
         this.handleEditItem = this.handleEditItem.bind(this);
         this.handleReEditSend = this.handleReEditSend.bind(this);
         this.handleItemStatus = this.handleItemStatus.bind(this);
+
     }
+
+/*     componentDidMount() {
+        alert("ToDo挂载完毕")
+    } */
+    componentDidMount() {
+        //alert("挂载完毕")
+        axios.get('http://127.0.0.1:5000/api/v1/items')
+        .then(response => {
+            //alert(response);
+            //console.log(response.data.items_list[0]);
+            //let new_items = response.data.items_list;
+            //console.log('?' + new_items)//?[object Object],[object Object]
+            this.setState({
+                items: [...response.data.items_list]
+            })
+        })
+        .catch(function(error) {
+            alert(error);
+        });
+    }
+/*     UNSAFE_componentWillMount(){
+        axios.get('http://127.0.0.1:5000/api/v1/items')
+        .then(response => {
+            alert(response);
+            //console.log(response.data.items_list[0]);
+            let new_items = response.data.items_list;
+            console.log('?' + new_items)//?[object Object],[object Object]
+            this.setState({
+                items: [...response.data.items_list]
+            })
+        })
+        .catch(function(error) {
+            alert(error);
+            alert("??");
+        });
+    } */
+/*
+    static getDerivedStateFromProps(nextProps, prevState) {
+
+        if (nextProps.items !== prevState.items) {
+            alert("?????????")
+            console.log(nextProps.items, prevState.items)
+            return {
+                items: nextProps.items,
+            };
+        }
+        return null;
+    } */
 
     //input输入监控
     handleChange(event) {
@@ -44,7 +101,7 @@ class TodoList extends Component {
         if(event.keyCode === 13 || event.type === 'click'){
             if(this.state.inputValue){
                 let new_item = {
-                    'id': 't'+Math.random().toString ,
+                    '_id': 't'+Math.random().toString ,
                     'value': this.state.inputValue,
                     'isEditing': false,
                     'isDone': false
@@ -52,7 +109,7 @@ class TodoList extends Component {
                 this.setState({
                     inputValue: '',
                     items: [new_item, ...this.state.items]
-                })
+                });
             }else{
                 alert("Please enter value!")
             }
@@ -119,7 +176,7 @@ class TodoList extends Component {
                         this.state.items.map((item, index) => {
                             return (
                                     <TodoListItem
-                                        key={item.id+index}
+                                        key={item._id+index}
                                         item={item}
                                         index={index}
                                         handleDeleteItem={this.handleDeleteItem}
@@ -127,7 +184,6 @@ class TodoList extends Component {
                                         handleReEditSend={this.handleReEditSend}
                                         handleItemStatus={this.handleItemStatus}
                                     />
-
                             );
                         })
                     }

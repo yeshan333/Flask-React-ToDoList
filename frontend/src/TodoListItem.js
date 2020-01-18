@@ -68,13 +68,13 @@ class TodoListItem extends Component {
                                 edge="start"
                                 checked={this.props.item.isDone}
                                 disableRipple
-                                inputProps={{ 'aria-labelledby': this.props.item.id }}
+                                inputProps={{ 'aria-labelledby': this.props.item._id }}
                                 onClick={this.handleItemStatus}
                             />
                         </ListItemIcon>
                         <ListItemText
                             style={{textDecorationLine: this.props.item.isDone ? 'line-through': 'none'}}
-                            id={this.props.item.id}
+                            id={this.props.item._id}
                         >
                             {this.props.item.value}
                         </ListItemText>
@@ -94,7 +94,7 @@ class TodoListItem extends Component {
                 <Fragment>
                     <ListItem button>
                     <TextField
-                        id={this.props.item.id}
+                        id={this.props.item._id}
                         label="editing"
                         variant="outlined"
                         value={this.state.inputValue}

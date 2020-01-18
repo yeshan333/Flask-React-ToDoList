@@ -3,13 +3,18 @@ import click
 
 from flask import Flask
 from flask import jsonify, make_response, abort, request
-
+from flask_cors import CORS
 
 from pymongo import MongoClient
 from time import strftime, gmtime
 
 
 app = Flask(__name__)
+
+CORS(app)
+
+# CROSS-ORIGIN-RESOURCE-SHARING
+cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
 
 # ------------------------------------------------------------------
 # Database MongoDB
@@ -40,7 +45,7 @@ def create_database():
 
             db_items.insert_one({
                 "value": "Hello World！",
-                "isEditing": True,
+                "isEditing": False,
                 "isDone": False
             })
 
