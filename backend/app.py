@@ -116,14 +116,17 @@ def post_item():
         not 'isEditing' in request.json or not 'isDone' in request.json:
         abort(400)
 
-    isEditing = True if request.json['isEditing'] == 'true' else False
-    isDone = True if request.json['isDone'] == 'true' else False
+    # isEditing = True if request.json['isEditing'] == 'true' else False
+    # isDone = True if request.json['isDone'] == 'true' else False
     item = {
         'value': request.json['value'],
-        'isEditing': isEditing,
-        'isDone': isDone
+        'isEditing': request.json['isEditing'],
+        'isDone': request.json['isDone']
     }
-
+    # print(item)
+    # print(request.json['isDone'])
+    # print(type(request.json['isDone']))
+    # print(request.json['isEditing'])
     return jsonify({"status": add_item(item)}), 201
 
 def add_item(item):
@@ -137,13 +140,23 @@ def add_item(item):
 # PUT, update a item
 @app.route('/api/v1/items', methods=['PUT'])
 def update_item():
+    # print("??")
     if not request.json or not '_id' in request.json or not 'value' in request.json or \
         not 'isEditing' in request.json or not 'isDone' in request.json:
         abort(400)
     item = {}
-    key_list = request.json.keys()
-    for i in key_list:
-        item[i] = request.json[i]
+    # isEditing = True if request.json['isEditing'] == 'true' else False
+    # isDone = True if request.json['isDone'] == 'true' else False
+    item = {
+        '_id': request.json['_id'],
+        'value': request.json['value'],
+        'isEditing': request.json['isEditing'],
+        'isDone': request.json['isDone']
+    }
+    # print(item)
+    # print(request.json['isDone'])
+    # print(type(request.json['isDone']))
+    # print(request.json['isEditing'])
     return jsonify({"status": upd_item(item)})
 
 def upd_item(item):

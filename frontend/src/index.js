@@ -10,13 +10,6 @@ import TodoList from './TodoList';
 import Copyright from './components/Copyright';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: []
-        };
-    }
-
 /*     componentDidMount() {
         alert("挂载完毕")
         axios.get('http://127.0.0.1:5000/api/v1/items')
@@ -42,7 +35,7 @@ class App extends Component {
                     React-Flask To-Do
                 </Typography>
                     <br />
-                <TodoList items={this.state.items}/>
+                <TodoList />
                 <Copyright />
           </Container>
         );
