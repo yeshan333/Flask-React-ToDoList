@@ -1,5 +1,6 @@
 import sys
 import click
+import os
 
 from flask import Flask
 from flask import jsonify, make_response, abort, request
@@ -18,15 +19,26 @@ cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
 
 # ------------------------------------------------------------------
 # Database MongoDB
-connection = MongoClient("mongodb://localhost:27017/")
 
+# MongoDB Atlas
+# MONGO_DB_URI = "mongodb+srv://wocao:OEXTmyd9t95QvzQ0@cluster0-jpqog.mongodb.net/test?retryWrites=true&w=majority"
+
+# Heroku mLab MongoDB, environment variable
+MONGO_DB_URI = os.getenv("MONGODB_URI")
+
+# local
+# connection = MongoClient("mongodb://localhost:27017/")
+
+connection = MongoClient(MONGO_DB_URI, retryWrites=False)  # production setting
+
+# development env：init database
 @app.cli.command("create-database",  help='initial DataBase')
 def create_database():
     try:
         dbnames = connection.list_database_names()
         if 'flask_react_todo' not in dbnames:
-            db_api = connection.flask_react_todo.apirelease
-            db_items = connection.flask_react_todo.items
+            db_api = connection.heroku_4tj98rgp.apirelease
+            db_items = connection.heroku_4tj98rgp.items
 
             db_api.insert_one({
                 "version": "v1",
@@ -56,6 +68,37 @@ def create_database():
         click.echo("Unexpected Error:", sys.exc_info()[0])
         click.echo("Database Creation Failed!")
 
+# production env：init database
+@app.cli.command("create-database-penv",  help='initial DataBase, Use in production')
+def create_database():
+    try:
+        db_api = connection.heroku_4tj98rgp.apirelease
+        db_items = connection.heroku_4tj98rgp.items
+
+        db_api.insert_one({
+            "version": "v1",
+            "buildtime": strftime('%A, %d %b %Y %H:%M:%S', gmtime()),
+            "methods": "GET, POST, PUT, DELETE",
+            "link": "api/v1/items"
+        })
+
+        db_items.insert_one({
+            "value": "Hello World！",
+            "isEditing": True,
+            "isDone": False
+        })
+
+        db_items.insert_one({
+            "value": "Hello World！",
+            "isEditing": False,
+            "isDone": False
+        })
+
+        click.echo("Init Sucessful")
+    except:
+        click.echo("Unexpected Error")
+
+# development env：drop database
 @app.cli.command("drop-database", help="drop DataBase")
 @click.argument("db_name")
 def drop_database(db_name):
@@ -70,7 +113,7 @@ def drop_database(db_name):
 # GET /api/v1/info
 @app.route('/api/v1/info', methods=['GET'])
 def get_api_info():
-    db = connection.flask_react_todo.apirelease
+    db = connection.heroku_4tj98rgp.apirelease
     print("Open Database Sucessful!")
     api_list = []
 
@@ -81,10 +124,10 @@ def get_api_info():
         abort(404)
     return jsonify({"api_info": api_list}), 200
 
-# GET item list
+# GET items list
 @app.route('/api/v1/items', methods=['GET'])
 def get_items():
-    db = connection.flask_react_todo.items
+    db = connection.heroku_4tj98rgp.items
     print('Open Database Sucessful!')
     items_list = []
     for row in db.find():
@@ -97,7 +140,7 @@ def get_items():
 # GET a item
 @app.route('/api/v1/items/<string:item_id>', methods=['GET'])
 def get_item(item_id):
-    db = connection.flask_react_todo.items
+    db = connection.heroku_4tj98rgp.items
     print('Open Database Successful!')
     item_list = []
     for row in db.find():
@@ -130,7 +173,7 @@ def post_item():
     return jsonify({"status": add_item(item)}), 201
 
 def add_item(item):
-    db = connection.flask_react_todo.items
+    db = connection.heroku_4tj98rgp.items
     print('Open Database Successful!')
     print(item)
 
@@ -160,7 +203,7 @@ def update_item():
     return jsonify({"status": upd_item(item)})
 
 def upd_item(item):
-    db = connection.flask_react_todo.items
+    db = connection.heroku_4tj98rgp.items
     print('Open Database Successful!')
     # print(item)
     item_list = []
@@ -185,7 +228,7 @@ def delete_item():
     return jsonify({"status": del_item(item)}), 200
 
 def del_item(item):
-    db = connection.flask_react_todo.items
+    db = connection.heroku_4tj98rgp.items
     print('Open Database Successful!')
     item_list = []
     for row in db.find():
@@ -211,7 +254,3 @@ def resource_not_found(error):
 @app.errorhandler(409)
 def resource_conflict(error):
     return make_response({'error':'Resource Conflict'}, 409)
-
-
-
-
