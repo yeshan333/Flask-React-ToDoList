@@ -26,7 +26,7 @@ cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
 # Heroku mLab MongoDB, environment variable
 MONGO_DB_URI = os.getenv("MONGODB_URI")
 
-# local
+# local, development MongoDB database: flask_react_todo
 # connection = MongoClient("mongodb://localhost:27017/")
 
 connection = MongoClient(MONGO_DB_URI, retryWrites=False)  # production setting
