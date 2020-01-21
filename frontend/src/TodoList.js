@@ -141,6 +141,9 @@ class TodoList extends Component {
                     'isEditing': false,
                     'isDone': false
                 };
+                this.setState({
+                    inputValue: '',
+                })
                 axios({
                     method: 'post',
                     url: 'http://127.0.0.1:5000/api/v1/items',
@@ -168,9 +171,6 @@ class TodoList extends Component {
         let delete_item = this.state.items[index];
         //delete delete_item['value'];
         //new_items.splice(index, 1);
-/*         this.setState({
-            items: new_items
-        }) */
         axios({
             method: 'delete',
             url: 'http://127.0.0.1:5000/api/v1/items',
