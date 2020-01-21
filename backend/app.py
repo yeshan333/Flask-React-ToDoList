@@ -1,3 +1,13 @@
+'''
+@Author: yeshan333
+@Date: 2020-01-17 14:17:32
+@GitHub: https://github.com/yeshan333
+@Contact: yeshan1329441308@gmail.com
+@License: Apache 2.0
+@LastEditTime : 2020-01-22 00:23:57
+@Description: flask-react-todo app REST backend service
+'''
+
 import sys
 import click
 import os
