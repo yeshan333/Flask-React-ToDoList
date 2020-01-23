@@ -5,12 +5,6 @@ import axios from 'axios'
 import TodoListItem from './TodoListItem';
 import Iteminput from './components/Iteminput';
 
-//axios Ajax
-/* axios.create({
-    baseURL: "",
-    responseType: "json"
-}); */
-
 const ListStyle = {
     width: '100%',
     backgroundColor: 'white',
@@ -25,11 +19,6 @@ class TodoList extends Component {
             //isEdit: true,//judge is edit?
             shouldUpdate: false,//flag: after post data
             items: []
-/*             items: [
-                {'_id': 't66', 'value': 'nihao', 'isEditing': false, 'isDone': true},
-                {'_id': 't77', 'value': 'wocao', 'isEditing': false, 'isDone': false},
-                {'_id': 't77', 'value': 'wocao', 'isEditing': true, 'isDone': false},
-            ] */
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSendClick = this.handleSendClick.bind(this);
@@ -43,10 +32,6 @@ class TodoList extends Component {
     getItemData() {
         axios.get('https://flask-react-todo.herokuapp.com/api/v1/items')
         .then(response => {
-            //alert(response);
-            //console.log(response.data.items_list[0]);
-            //let new_items = response.data.items_list;
-            //console.log('?' + new_items)//?[object Object],[object Object]
             this.setState({
                 items: [...response.data.items_list].reverse()
             })
@@ -56,16 +41,11 @@ class TodoList extends Component {
         });
     }
 
+    /*
     getItemId() {
         axios.get('http://127.0.0.1:5000/api/v1/items')
         .then(response => {
             alert(response);
-            //console.log(response.data.items_list[0]);
-            //let new_items = response.data.items_list;
-            //console.log('?' + new_items)//?[object Object],[object Object]
-/*             this.setState({
-                items: [...response.data.items_list].reverse()
-            }) */
             let last = response.data.items_list.pop();
             return last._id;
         })
@@ -73,56 +53,46 @@ class TodoList extends Component {
             alert(error);
         });
     }
+    */
 
     componentDidMount() {
-        //alert("挂载完毕")
+        //alert("Mount done")
         this.getItemData();
     }
 
-/*     shouldComponentUpdate() {
+    /*
+    shouldComponentUpdate() {
         if(this.state.shouldUpdate) {
             this.getItemData();
             return true;
         }
-    } */
+    }
+    */
 
-/*     componentDidUpdate(prevProps, prevState) {
+    /*
+    componentDidUpdate(prevProps, prevState) {
         console.log(prevState.items)
         if (this.state.items !== prevState.items) {
             this.getItemData();
         }
-      } */
+    }
+    */
 
-/*     UNSAFE_componentWillMount(){
-        axios.get('http://127.0.0.1:5000/api/v1/items')
-        .then(response => {
-            alert(response);
-            //console.log(response.data.items_list[0]);
-            let new_items = response.data.items_list;
-            console.log('?' + new_items)//?[object Object],[object Object]
-            this.setState({
-                items: [...response.data.items_list]
-            })
-        })
-        .catch(function(error) {
-            alert(error);
-            alert("??");
-        });
-    } */
-/*
+    /*
     static getDerivedStateFromProps(nextProps, prevState) {
 
         if (nextProps.items !== prevState.items) {
-            alert("?????????")
+            alert("event happen")
             console.log(nextProps.items, prevState.items)
             return {
                 items: nextProps.items,
             };
         }
         return null;
-    } */
+    }
+    */
 
-    //input输入监控
+    //input event monitor
     handleChange(event) {
         let  value = event.target.value
         this.setState({
@@ -130,7 +100,7 @@ class TodoList extends Component {
         })
     }
 
-    //提交事件
+    //process item submit event，ENTER or click
     handleSendClick(event) {
         //console.log(event.type);
         if(event.keyCode === 13 || event.type === 'click'){
@@ -157,16 +127,18 @@ class TodoList extends Component {
                 //alert("/?")
                 //new_item._id = this.getItemId();
                 //console.log(new_item._id);
-/*                 this.setState({
+                /*
+                this.setState({
                     shouldUpdate: true
-                }); */
+                });
+                */
             }else{
                 alert("Please enter value!")
             }
         }
     }
 
-    //删除列表项事件
+    //process item delete event
     handleDeleteItem(index) {
         let delete_item = this.state.items[index];
         //delete delete_item['value'];
@@ -181,7 +153,7 @@ class TodoList extends Component {
         )
     }
 
-    //编辑列表项事件
+    // item edit
     handleEditItem(index) {
         let new_items = this.state.items;
         new_items[index].isEditing = true;
@@ -190,6 +162,7 @@ class TodoList extends Component {
         });
     }
 
+    //item edit again，send again event
     handleReEditSend(index, value) {
         if(value){
             let update_item = this.state.items[index];
@@ -211,6 +184,7 @@ class TodoList extends Component {
         }
     }
 
+    //change item isDone status，Ajax
     handleItemStatus(index) {
         let new_items = this.state.items;
         new_items[index].isDone = !new_items[index].isDone;
@@ -228,14 +202,16 @@ class TodoList extends Component {
     render() {
         return (
             <Fragment>
-{/*                 <div>
+                {/*
+                <div>
                     <input
                         value={this.state.inputValue}
                         onChange={this.handleChange}
                         onKeyUp={this.handleSendClick}
                     />
                     <button onClick={this.handleSendClick}>Send</button>
-                </div> */}
+                </div>
+                */}
                 <Iteminput
                     value={this.state.inputValue}
                     handleChange={this.handleChange}

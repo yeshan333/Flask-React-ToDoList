@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
 
 function Iteminput(props) {
     const classes = useStyles();
-    //form submit submit has refresh problem
+    //form submit ，if use form element ，submit event has refresh problem
+    //event.preventDefault()
     return (
         <Fragment>
             <TextField

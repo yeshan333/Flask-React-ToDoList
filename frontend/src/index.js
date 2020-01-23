@@ -10,22 +10,6 @@ import TodoList from './TodoList';
 import Copyright from './components/Copyright';
 
 class App extends Component {
-/*     componentDidMount() {
-        alert("挂载完毕")
-        axios.get('http://127.0.0.1:5000/api/v1/items')
-        .then(response => {
-            alert(response);
-            //console.log(response.data.items_list[0]);
-            //let new_items = response.data.items_list;
-            //console.log('?' + new_items)//?[object Object],[object Object]
-            this.setState({
-                items: [...response.data.items_list]
-            })
-        })
-        .catch(function(error) {
-            alert(error);
-        });
-    } */
 
     render() {
         return (

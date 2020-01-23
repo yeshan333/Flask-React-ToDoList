@@ -30,30 +30,31 @@ class TodoListItem extends Component {
         this.handleItemStatus = this.handleItemStatus.bind(this);
     }
 
-    //删除事项
+    //delete item
     handleDeleteClick() {
         this.props.handleDeleteItem(this.props.index);
     }
 
+    //process edit item send event
     handleEditClick() {
         this.props.handleEditItem(this.props.index)
     }
 
-    //监听编辑修改
+    //Listen for edits
     handleInputChange(event) {
         this.setState({
             inputValue: event.target.value
         });
     }
 
-    //再编辑提交
+    //edit again send event
     handleReEditSend(event) {
         if(event.keyCode === 13){
             this.props.handleReEditSend(this.props.index, this.state.inputValue);
         }
     }
 
-    //控制事项状态
+    //control item isDone status
     handleItemStatus() {
         this.props.handleItemStatus(this.props.index);
     }
