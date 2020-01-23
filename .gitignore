@@ -1,5 +1,4 @@
 # Python
-
 __pycache__
 
 env
@@ -8,3 +7,5 @@ env
 
 # React
 node_modules
+
+coverage
