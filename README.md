@@ -19,6 +19,10 @@
 - React + Ajax 部署在Netlify，👉[https://vibrant-benz-4eff09.netlify.com/](https://vibrant-benz-4eff09.netlify.com/)
 - Flask RESTful APIs部署在Heroku，👉[https://flask-react-todo.herokuapp.com/api/v1/info](https://flask-react-todo.herokuapp.com/api/v1/info)
 
+前端部署分支：[netlify-frontend-service](https://github.com/yeshan333/Flask-React-ToDoList/tree/netlify-frontend-service)
+
+REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/Flask-React-ToDoList/tree/heroku-backend-service)
+
 ### 项目依赖
 
 - 前端React部分主要依赖
