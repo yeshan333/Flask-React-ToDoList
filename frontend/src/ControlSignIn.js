@@ -30,7 +30,7 @@ class App extends Component {
                 <Typography variant="h3" component="h1" gutterBottom align="center" style={{marginTop: '1.0rem'}}>
                 <img alt="logo" src={logo} style={{width: '30.0rem', height: '7.0rem'}} />
                 <br />
-                <AuthButton />
+                <LogoutButton />
                 </Typography>
                 <TodoList />
                 <Copyright />
@@ -60,6 +60,7 @@ function Auth() {
 
 const fakeAuth = {
     isAuthenticated: false,
+    user_email: '',
     authenticate(user_data, callback) {
         axios({
             method: 'post',
@@ -69,6 +70,7 @@ const fakeAuth = {
         })
         .then(response => {
             fakeAuth.isAuthenticated = true;
+            fakeAuth.user_email = user_data['email'];
             setTimeout(callback, 100);  // fake async, 登录时延模拟
         })
         .catch(function(error) {
@@ -76,7 +78,8 @@ const fakeAuth = {
             alert("user not exist or your password is wrong")
         });
     },
-    signout(user_data, callback) {
+    signout(callback) {
+        let user_data = {'email': fakeAuth.user_email};
         axios({
             method: 'put',
             url: 'http://127.0.0.1:5000/api/v1/users',
@@ -94,7 +97,7 @@ const fakeAuth = {
     }
 };
 
-function AuthButton() {
+function LogoutButton() {
     let history = useHistory();
 
     return fakeAuth.isAuthenticated ? (
