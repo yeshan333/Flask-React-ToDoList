@@ -8,6 +8,7 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
+import axios from 'axios';
 
 import TodoList from './TodoList';
 import ControlSignIn from './ControlSignIn';
@@ -38,8 +39,14 @@ const fakeAuth = {
     setTimeout(cb, 100); // fake async, 登录时延模拟
   },
   signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
+    axios.get('https://flask-react-todo.herokuapp.com/api/v1/items')
+    .then(response => {
+      fakeAuth.isAuthenticated = false;
+      setTimeout(cb, 100);
+    })
+    .catch(function(error) {
+        alert(error);
+    });
   }
 };
 
@@ -108,5 +115,5 @@ function LoginPage() {
   );
 }
 
-export {AuthExample};
-export {LoginPage};
+/* export {AuthExample};
+export {LoginPage}; */
