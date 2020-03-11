@@ -5,7 +5,7 @@
 
 基于React和Flask的前后端分离项目入门级demo--ToDo App
 
-![demo.png](https://img.vim-cn.com/d8/ed37d4d96c57240861dc92aef664137112104d.png)
+![demo.png](https://img.vim-cn.com/f8/f359b94189d1d2e2f1e73bb03ee9ffd54fd10b.gif)
 
 ---
 
@@ -40,11 +40,41 @@ REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/F
 
 ## 更新计划✅
 
-- [ ] 前端性能优化，由于Ajax处理不当，React APP体验不太好
+- [ ] 前端性能优化
 - [ ] 应用容器化部署
 - [ ] 前端样式优化
-- [ ] 考虑加入用户认证功能
+- [x] 考虑加入用户认证功能
+- [ ] 现使用的用户认证不太好，需要更换验证方式
+- [ ] Ajax 处理不当，需改进代码
 
 ## 许可证📝
 
 Apache 2.0
+
+---
+
+Start frontend development server
+
+```shell
+cd frontend
+# install dependencies
+npm install
+# start front-end service
+npm start  # served at http://localhost:3000/
+```
+
+Start backend development server
+
+```shell
+cd backend
+# create virtual environment
+virtualenv env
+# activate virtual environment
+source env/Scripts/activate
+# install dependencies
+pip install -r requirements.txt
+# initial Mongo Database, .\mongod.exe --config .\mongod.conf
+flask create-database  # drop database: flask drop-database name
+# start flask service
+flask run  # served at http://localhost:5000/
+```
