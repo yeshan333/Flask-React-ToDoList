@@ -4,7 +4,7 @@
 @GitHub: https://github.com/yeshan333
 @Contact: yeshan1329441308@gmail.com
 @License: Apache 2.0
-@LastEditTime : 2020-01-22 00:23:57
+@LastEditTime: 2020-03-11 16:27:16
 @Description: flask-react-todo app REST backend service
 '''
 
@@ -37,6 +37,7 @@ cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
 MONGO_DB_URI = os.getenv("MONGODB_URI")
 
 # local, development MongoDB database: flask_react_todo
+# .\mongod.exe --config .\mongod.conf dirve Mongo in powershell, root of Mongo dir
 # connection = MongoClient("mongodb://localhost:27017/")
 
 connection = MongoClient(MONGO_DB_URI, retryWrites=False)  # production setting
@@ -46,9 +47,10 @@ connection = MongoClient(MONGO_DB_URI, retryWrites=False)  # production setting
 def create_database():
     try:
         dbnames = connection.list_database_names()
-        if 'flask_react_todo' not in dbnames:
+        if 'heroku_4tj98rgp' not in dbnames:
             db_api = connection.heroku_4tj98rgp.apirelease
             db_items = connection.heroku_4tj98rgp.items
+            db_users = connection.heroku_4tj98rgp.users
 
             db_api.insert_one({
                 "version": "v1",
@@ -69,6 +71,12 @@ def create_database():
                 "value": "Hello World！",
                 "isEditing": False,
                 "isDone": False
+            })
+
+            db_users.insert_one({
+                "email": "1329441308@qq.com",
+                "password": "1234567890",
+                "isLogin": True
             })
 
             click.echo("Database Initialize completed!")
@@ -252,6 +260,64 @@ def del_item(item):
             return "Success"
 
 # ------------------------------------------------------------------
+# get users email
+@app.route('/api/v1/users', methods=['GET'])
+def get_users():
+    db = connection.heroku_4tj98rgp.users
+    print("Open Database Sucessful!")
+    user_list = []
+
+    for row in db.find():
+        row['_id'] = str(row['_id'])
+        user_list.append(row)
+    if user_list == []:
+        abort(404)
+    return jsonify({"users_info": user_list}), 200
+
+# change user login status
+@app.route('/api/v1/users', methods=['POST'])
+def login():
+    if not request.json or not 'email' in request.json \
+       or not 'password' in request.json:
+        abort(400)
+
+    db = connection.heroku_4tj98rgp.users
+    user = {}
+    user['email'] = request.json['email']
+    user['password'] = request.json['password']
+
+    user_list = []
+    for row in db.find():
+        if row['email'] == user['email'] and row['password'] == user['password']:
+            user_list.append(row)
+            db.update({"_id": row["_id"]}, {'$set': {'isLogin': True}})
+            # abort(401)  # Unauthorized
+    if user_list == []:
+        abort(404)
+    else:
+        return jsonify({"LoginStatus": "Login"}), 200
+
+@app.route('/api/v1/users', methods=['PUT'])
+def logout():
+    if not request.json or not 'email' in request.json:
+        abort(400)
+
+    db = connection.heroku_4tj98rgp.users
+    user = {}
+    user['email'] = request.json['email']
+
+    user_list = []
+    for row in db.find():
+        if row['email'] == user['email']:
+            user_list.append(row)
+            db.update({"_id": row["_id"]}, {'$set': {'isLogin': False}})
+    if user_list == []:
+        abort(404)
+    else:
+        return jsonify({"LoginStatus": "Logout"}), 200
+
+
+# ------------------------------------------------------------------
 # bad request handle
 @app.errorhandler(400)
 def invalid_request(error):
@@ -264,3 +330,7 @@ def resource_not_found(error):
 @app.errorhandler(409)
 def resource_conflict(error):
     return make_response({'error':'Resource Conflict'}, 409)
+
+@app.errorhandler(401)
+def Unauthorized(error):
+    return make_response({'error':'Unauthorized'}, 401)
