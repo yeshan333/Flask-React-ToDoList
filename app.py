@@ -4,7 +4,7 @@
 @GitHub: https://github.com/yeshan333
 @Contact: yeshan1329441308@gmail.com
 @License: Apache 2.0
-@LastEditTime: 2020-03-11 16:27:16
+@LastEditTime: 2020-03-11 16:34:07
 @Description: flask-react-todo app REST backend service
 '''
 
@@ -92,6 +92,7 @@ def create_database():
     try:
         db_api = connection.heroku_4tj98rgp.apirelease
         db_items = connection.heroku_4tj98rgp.items
+        db_users = connection.heroku_4tj98rgp.users
 
         db_api.insert_one({
             "version": "v1",
@@ -110,6 +111,12 @@ def create_database():
             "value": "Hello World！",
             "isEditing": False,
             "isDone": False
+        })
+
+        db_users.insert_one({
+            "email": "1329441308@qq.com",
+            "password": "1234567890",
+            "isLogin": True
         })
 
         click.echo("Init Sucessful")
