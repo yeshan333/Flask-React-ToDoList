@@ -7,6 +7,7 @@
 
 ![demo.png](https://img.vim-cn.com/f8/f359b94189d1d2e2f1e73bb03ee9ffd54fd10b.gif)
 
+email: 1329441308@qq.com; password: 1234567890，资源未做保护
 ---
 
 ## 简介😘
@@ -17,11 +18,14 @@
 
 - React APP部署在Netlify，👉[https://kind-mclean-15510a.netlify.com/](https://kind-mclean-15510a.netlify.com/)，[![Netlify Status](https://api.netlify.com/api/v1/badges/be5ea8e0-a8a8-4854-9a12-0aa0ba80f70f/deploy-status)](https://app.netlify.com/sites/kind-mclean-15510a/deploys)
 - React + Ajax 部署在Netlify，👉[https://vibrant-benz-4eff09.netlify.com/](https://vibrant-benz-4eff09.netlify.com/)
+- React + Ajax + 用户认证，[👉https://hardcore-swirles-fbea59.netlify.com/](https://hardcore-swirles-fbea59.netlify.com/)
 - Flask RESTful APIs部署在Heroku，👉[https://flask-react-todo.herokuapp.com/api/v1/info](https://flask-react-todo.herokuapp.com/api/v1/info)
 
 前端部署分支：[netlify-frontend-service](https://github.com/yeshan333/Flask-React-ToDoList/tree/netlify-frontend-service)
 
 REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/Flask-React-ToDoList/tree/heroku-backend-service)
+
+**REST 后端仍未做资源保护**
 
 ### 项目依赖
 
@@ -29,6 +33,7 @@ REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/F
   - Material UI 4.8.3
   - axios 0.19.1
   - React 16.12
+  - React-Router-Dom 5.1.2
 - 后端Flask部分主要依赖
   - Flask 1.1.1
   - pymongo 3.10.1
