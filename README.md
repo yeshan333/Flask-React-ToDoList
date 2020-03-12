@@ -18,7 +18,7 @@ email: 1329441308@qq.com; password: 1234567890，资源未做保护
 
 - React APP部署在Netlify，👉[https://kind-mclean-15510a.netlify.com/](https://kind-mclean-15510a.netlify.com/)，[![Netlify Status](https://api.netlify.com/api/v1/badges/be5ea8e0-a8a8-4854-9a12-0aa0ba80f70f/deploy-status)](https://app.netlify.com/sites/kind-mclean-15510a/deploys)
 - React + Ajax 部署在Netlify，👉[https://vibrant-benz-4eff09.netlify.com/](https://vibrant-benz-4eff09.netlify.com/)
-- React + Ajax + 用户认证，[👉https://hardcore-swirles-fbea59.netlify.com/](https://hardcore-swirles-fbea59.netlify.com/)
+- React + Ajax + 假的登录，[👉https://hardcore-swirles-fbea59.netlify.com/](https://hardcore-swirles-fbea59.netlify.com/)
 - Flask RESTful APIs部署在Heroku，👉[https://flask-react-todo.herokuapp.com/api/v1/info](https://flask-react-todo.herokuapp.com/api/v1/info)
 
 前端部署分支：[netlify-frontend-service](https://github.com/yeshan333/Flask-React-ToDoList/tree/netlify-frontend-service)
@@ -48,8 +48,8 @@ REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/F
 - [ ] 前端性能优化
 - [ ] 应用容器化部署
 - [ ] 前端样式优化
-- [x] 考虑加入用户认证功能
-- [ ] 现使用的用户认证不太好，需要更换验证方式
+- [x] 加个登录表单
+- [ ] 现在的登录是假的，需要更换验证方式
 - [ ] Ajax 处理不当，需改进代码
 
 ## 许可证📝
