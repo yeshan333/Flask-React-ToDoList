@@ -7,7 +7,8 @@
 
 ![demo.png](https://img.vim-cn.com/f8/f359b94189d1d2e2f1e73bb03ee9ffd54fd10b.gif)
 
-email: 1329441308@qq.com; password: 1234567890，资源未做保护
+email: 1329441308@qq.com; password: 1234567890，已部署的 App 资源未做保护(Bearer Token 实现分支: https://github.com/yeshan333/Flask-React-ToDoList/tree/bearer-token)
+
 ---
 
 ## 简介😘
