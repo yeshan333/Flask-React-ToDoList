@@ -26,6 +26,8 @@ email: 1329441308@qq.com; password: 1234567890，已部署的 App 资源未做�
 
 REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/Flask-React-ToDoList/tree/heroku-backend-service)
 
+Docker 部署：[https://github.com/yeshan333/Flask-React-ToDoList/tree/docker](https://github.com/yeshan333/Flask-React-ToDoList/tree/docker)
+
 **REST 后端仍未做资源保护**
 
 ### 项目依赖
@@ -47,7 +49,7 @@ REST后端部署分支：[heroku-backend-service](https://github.com/yeshan333/F
 ## 更新计划✅
 
 - [ ] 前端性能优化
-- [ ] 应用容器化部署
+- [x] 应用容器化部署
 - [ ] 前端样式优化
 - [x] 加个登录表单
 - [ ] 现在的登录是假的，需要更换验证方式
@@ -84,3 +86,15 @@ flask create-database  # drop database: flask drop-database name
 # start flask service
 flask run  # served at http://localhost:5000/
 ```
+
+---
+
+run in Docker
+
+```bash
+git clone https://github.com/yeshan333/Flask-React-ToDoList
+cd Flask-React-ToDoList
+git checkout docker
+```
+
+URI 写死了，没用环境变量哭了🤣
