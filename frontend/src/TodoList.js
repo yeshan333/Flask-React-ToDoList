@@ -30,7 +30,7 @@ class TodoList extends Component {
     }
 
     getItemData() {
-        axios.get('https://flask-react-todo.herokuapp.com/api/v1/items')
+        axios.get('http://localhost:5000/api/v1/items')
         .then(response => {
             this.setState({
                 items: [...response.data.items_list].reverse()
@@ -116,7 +116,7 @@ class TodoList extends Component {
                 })
                 axios({
                     method: 'post',
-                    url: 'https://flask-react-todo.herokuapp.com/api/v1/items',
+                    url: 'http://localhost:5000/api/v1/items',
                     data: new_item,
                     headers: {'Content-Type': 'application/json'}
                 }).then(
@@ -145,7 +145,7 @@ class TodoList extends Component {
         //new_items.splice(index, 1);
         axios({
             method: 'delete',
-            url: 'https://flask-react-todo.herokuapp.com/api/v1/items',
+            url: 'http://localhost:5000/api/v1/items',
             data: delete_item,
             headers: {'Content-Type': 'application/json'}
         }).then(
@@ -173,7 +173,7 @@ class TodoList extends Component {
             }); */
             axios({
                 method: 'put',
-                url: 'https://flask-react-todo.herokuapp.com/api/v1/items',
+                url: 'http://localhost:5000/api/v1/items',
                 data: update_item,
                 headers: {'Content-Type': 'application/json'}
             }).then(
@@ -191,7 +191,7 @@ class TodoList extends Component {
         //console.log(new_items[index])
         axios({
             method: 'put',
-            url: 'https://flask-react-todo.herokuapp.com/api/v1/items',
+            url: 'http://localhost:5000/api/v1/items',
             data: new_items[index],
             headers: {'Content-Type': 'application/json'}
         }).then(

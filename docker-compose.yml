@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  backend:
+    container_name: flask_backend
+    image: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+
+  database:
+    container_name: mongo_database
+    image: mongo
+    volumes:
+      - data:/data/db
+
+  frontend:
+    container_name: frontend-react
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+        - static:/usr/src/app/build
+    ports:
+      - "3000:5000"
+
+  nginx-static:
+    container_name: webserver-nginx
+    image: nginx:latest
+    ports:
+     - "80:80"
+    volumes:
+     - static:/usr/share/nginx/html
+    command: /bin/bash -c "nginx -g 'daemon off;'"
+
+volumes:
+  data:
+  static:

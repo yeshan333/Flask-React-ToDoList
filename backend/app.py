@@ -4,7 +4,7 @@
 @GitHub: https://github.com/yeshan333
 @Contact: yeshan1329441308@gmail.com
 @License: Apache 2.0
-@LastEditTime: 2020-03-11 10:55:41
+@LastEditTime: 2020-06-28 15:06:23
 @Description: flask-react-todo app REST backend service
 '''
 
@@ -38,9 +38,15 @@ MONGO_DB_URI = os.getenv("MONGODB_URI")
 
 # local, development MongoDB database: flask_react_todo
 # .\mongod.exe --config .\mongod.conf dirve Mongo in powershell, root of Mongo dir
-connection = MongoClient("mongodb://localhost:27017/")
+# connection = MongoClient("mongodb://localhost:27017/")
 
 # connection = MongoClient(MONGO_DB_URI, retryWrites=False)  # production setting
+
+
+# ---------------------------------
+# docker settings
+connection = MongoClient("mongodb://mongo_database:27017/")
+# ---------------------------------
 
 # development env：init database
 @app.cli.command("create-database",  help='initial DataBase')

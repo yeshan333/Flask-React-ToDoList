@@ -39,7 +39,7 @@ const fakeAuth = {
     setTimeout(cb, 100); // fake async, 登录时延模拟
   },
   signout(cb) {
-    axios.get('https://flask-react-todo.herokuapp.com/api/v1/items')
+    axios.get('http://localhost:5000/api/v1/items')  //https://flask-react-todo.herokuapp.com/api/v1/items
     .then(response => {
       fakeAuth.isAuthenticated = false;
       setTimeout(cb, 100);
