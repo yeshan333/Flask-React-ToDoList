@@ -1,5 +1,5 @@
 # Flask-React-ToDo
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/yeshan333/Flask-React-ToDoList/master) ![Netlify](https://img.shields.io/netlify/be5ea8e0-a8a8-4854-9a12-0aa0ba80f70f) ![GitHub issues](https://img.shields.io/github/issues-raw/yeshan333/Flask-React-ToDoList) [![Netlify Status](https://api.netlify.com/api/v1/badges/05c648e3-71bd-4be1-bd7a-bf6a2cafed5a/deploy-status)](https://app.netlify.com/sites/vibrant-benz-4eff09/deploys)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/yeshan333/Flask-React-ToDoList/master) ![Netlify](https://img.shields.io/netlify/be5ea8e0-a8a8-4854-9a12-0aa0ba80f70f) ![GitHub issues](https://img.shields.io/github/issues-raw/yeshan333/Flask-React-ToDoList) [![Build Status](https://travis-ci.com/yeshan333/Flask-React-ToDoList.svg?branch=master)](https://travis-ci.com/yeshan333/Flask-React-ToDoList) [![Netlify Status](https://api.netlify.com/api/v1/badges/05c648e3-71bd-4be1-bd7a-bf6a2cafed5a/deploy-status)](https://app.netlify.com/sites/vibrant-benz-4eff09/deploys)
 
 ---
 
