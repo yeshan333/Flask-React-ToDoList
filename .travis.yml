@@ -13,4 +13,5 @@ before_script:
   - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 # command to run tests
 script:
+  - flask create-database
   - nose2
