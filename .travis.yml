@@ -1,9 +1,16 @@
 language: python
 python:
   - "3.6"
+services:
+  - mongodb
 # command to install dependencies
 install:
   - cd backend && pip install -r requirements.txt
+before_script:
+  - mkdir -p data/db
+  - mongod --dbpath=data/db &
+  - sleep 5
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 # command to run tests
 script:
   - nose2
