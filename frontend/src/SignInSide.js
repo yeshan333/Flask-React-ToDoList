@@ -20,7 +20,7 @@ function Copyright() {
       <Link color="inherit" href="https://material-ui.com/">
         ShanSan
       </Link>{' '}
-      {new Date().getFullYear()}
+      {2020-new Date().getFullYear()}
       {'.'}
     </Typography>
   );

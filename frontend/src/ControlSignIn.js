@@ -21,6 +21,8 @@ import logo from './images/logo.png';
 
 import Copyright from './components/Copyright';
 
+import Backend_Service_URL from './config';
+
 class App extends Component {
 
     render() {
@@ -64,7 +66,7 @@ const fakeAuth = {
     authenticate(user_data, callback) {
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:5000/api/v1/users',
+            url: Backend_Service_URL + '/api/v1/users',
             data: user_data,
             headers: {'Content-Type': 'application/json'}
         })
@@ -82,7 +84,7 @@ const fakeAuth = {
         let user_data = {'email': fakeAuth.user_email};
         axios({
             method: 'put',
-            url: 'http://127.0.0.1:5000/api/v1/users',
+            url: Backend_Service_URL + '/api/v1/users',
             data: user_data,
             headers: {'Content-Type': 'application/json'}
         })

@@ -12,6 +12,7 @@ import axios from 'axios';
 
 import TodoList from './TodoList';
 import ControlSignIn from './ControlSignIn';
+import Backend_Service_URL from "./config";
 
 function AuthExample() {
   return (
@@ -39,7 +40,8 @@ const fakeAuth = {
     setTimeout(cb, 100); // fake async, 登录时延模拟
   },
   signout(cb) {
-    axios.get('https://flask-react-todo.herokuapp.com/api/v1/items')
+    const Backend_Service = Backend_Service_URL + '/api/v1/items';
+    axios.get(Backend_Service)
     .then(response => {
       fakeAuth.isAuthenticated = false;
       setTimeout(cb, 100);
