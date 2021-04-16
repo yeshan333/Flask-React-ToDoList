@@ -16,11 +16,14 @@ class Flask_APP_Test(unittest.TestCase):
     # GET items
     def test_items_get(self):
         result = self.app.get('/api/v1/items')
+        # print("结果", result.json)
         self.assertEqual(result.status_code, 200)
 
     # GET a item
     def test_item_get(self):
-        result = self.app.get('/api/v1/items/5e218565f532f9e89d89e670')
+        get_result = self.app.get('/api/v1/items')
+        _id = get_result.json['items_list'][0]['_id']
+        result = self.app.get('/api/v1/items/' + _id)
         self.assertEqual(result.status_code, 200)
 
     # POST a item
@@ -32,15 +35,20 @@ class Flask_APP_Test(unittest.TestCase):
 
     # PUT a item, update
     def test_item_put(self):
+        get_result = self.app.get('/api/v1/items')
+        id = get_result.json['items_list'][0]['_id']
+        post_data = '{"_id": "%s", "value": "yeshan333", "isEditing": "true", "isDone": "true"}' % (str(id))
         result = self.app.put('/api/v1/items', \
-            data='{"_id": "5e2186b8e5cd5ba757d35040", "value": "yeshan333", "isEditing": "true", "isDone": "true"}', \
+            data=post_data, \
             content_type='application/json')
         self.assertEqual(result.status_code, 200)
 
     # DELETE, delete a item
     def test_item_delete(self):
+        get_result = self.app.get('/api/v1/items')
+        iid = get_result.json['items_list'][1]['_id']
+        post_data = '{"_id": "%s"}' % (iid)
         result = self.app.delete('/api/v1/items', \
-            data='{"_id": "5e2190510350a224ce1d1c56"}', \
+            data=post_data, \
             content_type='application/json')
         self.assertEqual(result.status_code, 200)
-
