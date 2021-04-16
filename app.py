@@ -4,7 +4,7 @@
 @GitHub: https://github.com/yeshan333
 @Contact: yeshan1329441308@gmail.com
 @License: Apache 2.0
-LastEditTime: 2021-04-16 17:12:26
+LastEditTime: 2021-04-16 17:21:32
 @Description: flask-react-todo app REST backend service
 '''
 
@@ -34,7 +34,7 @@ cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
 # MONGO_DB_URI = "mongodb+srv://yeshan333:<password>@cluster0.f7c8d.mongodb.net/admin"
 
 # Heroku mLab MongoDB, environment variable
-MONGO_DB_URI = os.getenv("MONGODB_URI")
+MONGO_DB_URI = os.getenv("MONGO_DB_URI")
 # local, development MongoDB database: flask_react_todo
 # .\mongod.exe --config .\mongod.conf dirve Mongo in powershell, root of Mongo dir
 # connection = MongoClient("mongodb://localhost:27017/")
