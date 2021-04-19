@@ -1,3 +1,5 @@
+/* React-Router official demo modified*/
+
 import React, {Fragment} from "react";
 import {
   BrowserRouter as Router,
@@ -10,9 +12,9 @@ import {
 } from "react-router-dom";
 import axios from 'axios';
 
-import TodoList from './TodoList';
-import ControlSignIn from './ControlSignIn';
-import Backend_Service_URL from "./config";
+import TodoList from '../TodoList';
+import ControlSignIn from '../ControlSignIn';
+import Backend_Service_URL from "../config";
 
 function AuthExample() {
   return (
